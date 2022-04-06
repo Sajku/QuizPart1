@@ -9,15 +9,17 @@ namespace QuizPart1.Modules
     internal class Question
     {
         public string Content { get; set; }
-        public List<string> Answers;
+        public List<string> Answers { get; set; }
         public int Correct { get; set; }
         public int Chosen { get; set; }
 
-        public Question(string c, string[] a, int index)
+        public Question(string c, List<string> a, int index, int chosenI)
         {
 
             this.Content = c;
             this.Correct = index;
+            this.Chosen = chosenI;
+            this.Answers = new List<string>();
 
             foreach (string answer in a)
             {
@@ -25,7 +27,5 @@ namespace QuizPart1.Modules
             }
 
         }
-
-
     }
 }

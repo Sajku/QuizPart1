@@ -8,6 +8,10 @@
         mc:Ignorable="d"
         Title="QUIZ - GENERATOR" Height="450" Width="800">
 
+    <Window.DataContext>
+        <vm:MainViewModel x:Name="mainViewModel"/>
+    </Window.DataContext>
+
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Width" Value="200"/>
@@ -49,8 +53,7 @@
             <Button Grid.Row="1"
                     Grid.Column="0"
                     x:Name="newBtn"
-                    Content="Nowy Quiz"
-                    Click="newBtn_Click"/>
+                    Content="Nowy Quiz"/>
 
             <ListBox Grid.Row="2"
                      x:Name="quizListBox"
@@ -83,8 +86,7 @@
                        TextAlignment="Center"/>
 
             <Button Grid.Row="1"
-                    Content="Wybierz plik"
-                    Click="fileBtn"/>
+                    Content="Wybierz plik"/>
 
             <Button Grid.Row="2"
                     Width="270"

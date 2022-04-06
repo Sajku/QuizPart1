@@ -10,21 +10,19 @@ namespace QuizPart1.Modules
     internal class Quiz
     {
         public string Name { get; set; }
-        public List<Question> questions;
+        public List<Question> Questions { get; set; }
 
-
-        private MainWindow currentWin;
-        public Quiz(string n, MainWindow win)
+        public Quiz(string n)
         {
             this.Name = n;
-            questions = new List<Question>();
-            this.currentWin = win;
+            Questions = new List<Question>();
         }
 
         public override string ToString()
         {
             //this.currentWin.NazwaQuizu = "3";
-            return this.Name + ", pytań: " + this.questions.Count;
+            return this.Name + ", pytań: " + this.Questions.Count;
         }
+
     }
 }

@@ -44,5 +44,6 @@ namespace QuizPart1.ViewModel
                 FilePath = openFileDialog1.FileName;
 
         }
+
     }
 }
