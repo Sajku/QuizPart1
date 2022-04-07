@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace QuizPart1.Modules
 {
-    internal class Quiz
+    class Quiz
     {
         public string Name { get; set; }
         public List<Question> Questions { get; set; }

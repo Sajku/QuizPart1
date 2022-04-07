@@ -1,11 +1,15 @@
 ﻿using Microsoft.Win32;
+using QuizPart1.Modules;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace QuizPart1.ViewModel
 {
@@ -15,10 +19,45 @@ namespace QuizPart1.ViewModel
 
         public MainViewModel()
         {
-            FilePath = "FILEPATH...";
+            FilePath = "FILEPATH...123";
+            QuizList = new List<Quiz>();
+            Quiz currentQuiz = new Quiz("Pierwszy");
+
+            List<string> lista1 = new List<string>();
+            lista1.Add("111a");
+            lista1.Add("222a");
+            lista1.Add("333a");
+            lista1.Add("444a");
+            currentQuiz.Questions.Add(new Question("Treść1", lista1, 1, 2));
+            lista1.RemoveAt(0);
+            lista1.RemoveAt(0);
+            lista1.RemoveAt(0);
+            lista1.RemoveAt(0);
+            lista1.Add("1B");
+            lista1.Add("2B");
+            lista1.Add("3B");
+            lista1.Add("4B");
+            currentQuiz.Questions.Add(new Question("TREŚĆ2", lista1, 1, 2));
+
+            string fileName = "dane.json";
+            var json = JsonSerializer.Serialize(currentQuiz);
+            File.WriteAllText(fileName, json);
+
+            QuizList.Add(currentQuiz);
         }
 
-        private string filePath = "";
+        private string quizName;
+        public string QuizName
+        {
+            get => quizName;
+            set
+            {
+                quizName = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(quizName)));
+            }
+        }
+
+        private string filePath;
         public string FilePath
         {
             get => filePath;
@@ -28,6 +67,18 @@ namespace QuizPart1.ViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(filePath)));
             }
         }
+
+        public List<Quiz> QuizList { get; set; }
+
+        //private ICommand addQuiz;
+        //public ICommand AddQuiz
+        //{
+        //    get
+        //    {
+        //        addQuiz() => QuizList.Add(new Quiz(QuizName));
+        //        return addQuiz; 
+        //    }
+        //}
 
         public void fileBtn(object sender, RoutedEventArgs e)
         {

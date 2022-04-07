@@ -53,12 +53,14 @@
             <Button Grid.Row="1"
                     Grid.Column="0"
                     x:Name="newBtn"
-                    Content="Nowy Quiz"/>
+                    Content="Nowy Quiz"
+                    Command="{Binding AddQuiz}"/>
 
             <ListBox Grid.Row="2"
                      x:Name="quizListBox"
                      Background="#a7c0cd"
-                     Margin="25"/>
+                     Margin="25"
+                     ItemsSource="{Binding QuizList}"/>
 
             <Button Grid.Row="3"
                     x:Name="Btn1"

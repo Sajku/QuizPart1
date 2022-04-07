@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuizPart1.Modules
 {
-    internal class Question
+    class Question
     {
         public string Content { get; set; }
         public List<string> Answers { get; set; }
