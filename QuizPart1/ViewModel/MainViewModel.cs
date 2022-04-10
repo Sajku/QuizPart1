@@ -1,13 +1,10 @@
 ﻿using Microsoft.Win32;
 using QuizPart1.Modules;
-using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -20,7 +17,8 @@ namespace QuizPart1.ViewModel
         public MainViewModel()
         {
             FilePath = "FILEPATH...123";
-            QuizList = new List<Quiz>();
+            QuizList = new ObservableCollection<Quiz>();
+
             Quiz currentQuiz = new Quiz("Pierwszy");
 
             List<string> lista1 = new List<string>();
@@ -68,17 +66,27 @@ namespace QuizPart1.ViewModel
             }
         }
 
-        public List<Quiz> QuizList { get; set; }
+        public ObservableCollection<Quiz> QuizList { get; set; }
 
-        //private ICommand addQuiz;
-        //public ICommand AddQuiz
-        //{
-        //    get
-        //    {
-        //        addQuiz() => QuizList.Add(new Quiz(QuizName));
-        //        return addQuiz; 
-        //    }
-        //}
+
+        private ICommand addQuiz;
+        public ICommand AddQuiz
+        {
+            get
+            {
+                if (addQuiz == null)
+                    addQuiz = new RelayCommand(
+
+                    (o) =>
+                    {
+                        QuizList.Add(new Quiz(QuizName));
+                    },
+                    (o) => true
+                    );
+                return addQuiz;
+            }
+        }
+
 
         public void fileBtn(object sender, RoutedEventArgs e)
         {
