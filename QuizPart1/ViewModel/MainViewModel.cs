@@ -81,9 +81,38 @@ namespace QuizPart1.ViewModel
                     {
                         QuizList.Add(new Quiz(QuizName));
                     },
+
                     (o) => true
                     );
                 return addQuiz;
+            }
+        }
+
+        private ICommand addPath;
+        public ICommand AddPath
+        {
+            get
+            {
+                if (addPath == null)
+                    addPath = new RelayCommand(
+
+                        (o) =>
+                        {
+                            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+                            openFileDialog1.Title = "Wybierz plik quizu";
+                            openFileDialog1.DefaultExt = "json";
+                            openFileDialog1.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*";
+                            openFileDialog1.FilterIndex = 1;
+                            openFileDialog1.CheckFileExists = true;
+                            openFileDialog1.CheckPathExists = true;
+
+
+                            if (openFileDialog1.ShowDialog() == true)
+                                FilePath = openFileDialog1.FileName;
+                        },
+                        (o) => true
+                        );
+                return addPath;
             }
         }
 
