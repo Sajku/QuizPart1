@@ -116,22 +116,5 @@ namespace QuizPart1.ViewModel
             }
         }
 
-
-        public void fileBtn(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Title = "Wybierz plik quizu";
-            openFileDialog1.DefaultExt = "json";
-            openFileDialog1.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 1;
-            openFileDialog1.CheckFileExists = true;
-            openFileDialog1.CheckPathExists = true;
-
-
-            if (openFileDialog1.ShowDialog() == true)
-                FilePath = openFileDialog1.FileName;
-
-        }
-
     }
 }
