@@ -21,24 +21,47 @@ namespace QuizPart1.ViewModel
 
             Quiz currentQuiz = new Quiz("Pierwszy");
 
-            List<string> lista1 = new List<string>();
-            lista1.Add("111a");
-            lista1.Add("222a");
-            lista1.Add("333a");
-            lista1.Add("444a");
-            currentQuiz.Questions.Add(new Question("Treść1", lista1, 1, 2));
+            List<string> lista1 = new List<string>
+            {
+                "Odpowiedź 1",
+                "Odpowiedź 2 - p",
+                "Odpowiedź 3",
+                "Odpowiedź 4"
+            };
+
+            currentQuiz.Questions.Add(new Question("Treść pytania numer 1", lista1, 1, -1));
             lista1.RemoveAt(0);
             lista1.RemoveAt(0);
             lista1.RemoveAt(0);
             lista1.RemoveAt(0);
-            lista1.Add("1B");
-            lista1.Add("2B");
-            lista1.Add("3B");
-            lista1.Add("4B");
-            currentQuiz.Questions.Add(new Question("TREŚĆ2", lista1, 1, 2));
+            lista1.Add("Odp A");
+            lista1.Add("Odp B");
+            lista1.Add("Odp C");
+            lista1.Add("Odp D - p");
+            currentQuiz.Questions.Add(new Question("PYTANIE NUMER 2", lista1, 3, -1));
+
+            lista1.RemoveAt(0);
+            lista1.RemoveAt(0);
+            lista1.RemoveAt(0);
+            lista1.RemoveAt(0);
+            lista1.Add("ANSWER ABC - p");
+            lista1.Add("ANSWER DEF");
+            lista1.Add("ANSWER GHI");
+            lista1.Add("ANSWER JKL");
+            currentQuiz.Questions.Add(new Question("QUESTION 3.", lista1, 0, -1));
+
+            lista1.RemoveAt(0);
+            lista1.RemoveAt(0);
+            lista1.RemoveAt(0);
+            lista1.RemoveAt(0);
+            lista1.Add("aaaaaaaaaAAAAAAA");
+            lista1.Add("bbbbbbBBBBBBBB");
+            lista1.Add("ccccccccCCCCCCCCCc - p");
+            lista1.Add("dddDDD");
+            currentQuiz.Questions.Add(new Question("jdkjqkdnsdnasndasdka", lista1, 2, -1));
 
             string fileName = "dane.json";
-            var json = JsonSerializer.Serialize(currentQuiz);
+            string json = JsonSerializer.Serialize(currentQuiz);
             File.WriteAllText(fileName, json);
 
             QuizList.Add(currentQuiz);
