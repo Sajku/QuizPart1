@@ -1,5 +1,5 @@
 ﻿using Microsoft.Win32;
-using QuizPart1.Modules;
+using QuizPart1.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,10 +13,11 @@ namespace QuizPart1.ViewModel
     class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private bool fileChosen;
 
         public MainViewModel()
         {
-            FilePath = "FILEPATH...123";
+            fileChosen = false;
             QuizList = new ObservableCollection<Quiz>();
 
             Quiz currentQuiz = new Quiz("Pierwszy");
@@ -85,6 +86,7 @@ namespace QuizPart1.ViewModel
             set
             {
                 filePath = value;
+                fileChosen = true;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(filePath)));
             }
         }
@@ -108,6 +110,44 @@ namespace QuizPart1.ViewModel
                     (o) => true
                     );
                 return addQuiz;
+            }
+        }
+
+        private ICommand readFile;
+        public ICommand ReadFile
+        {
+            get
+            {
+                if (readFile == null)
+                    readFile = new RelayCommand(
+
+                    (o) =>
+                    {
+                        // TO DO
+                    },
+
+                    (o) => fileChosen
+                    );
+                return readFile;
+            }
+        }
+
+        private ICommand writeFile;
+        public ICommand WriteFile
+        {
+            get
+            {
+                if (writeFile == null)
+                    writeFile = new RelayCommand(
+
+                    (o) =>
+                    {
+                        // TO DO
+                    },
+
+                    (o) => true
+                    );
+                return writeFile;
             }
         }
 
@@ -136,6 +176,27 @@ namespace QuizPart1.ViewModel
                         (o) => true
                         );
                 return addPath;
+            }
+        }
+
+        private ICommand changeWindow;
+        public ICommand ChangeWindow
+        {
+            get
+            {
+                if (changeWindow == null)
+                    changeWindow = new RelayCommand(
+
+                    (o) =>
+                    {
+                        Application.Current.MainWindow = new QuizWindow();
+
+                        Application.Current.MainWindow.Show();
+                    },
+
+                    (o) => true
+                    );
+                return changeWindow;
             }
         }
 

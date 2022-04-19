@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:QuizPart1"
         xmlns:vm="clr-namespace:QuizPart1.ViewModel"
         mc:Ignorable="d"
-        Title="QUIZ - GENERATOR" Height="450" Width="800">
+        Title="QUIZ - GENERATOR" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <vm:MainViewModel x:Name="mainViewModel"/>
@@ -28,7 +29,8 @@
         </Style>
     </Window.Resources>
 
-    <Grid x:Name="mainGrid">
+    <Grid MinHeight="100"
+          MinWidth="100">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -46,25 +48,22 @@
             </Grid.RowDefinitions>
 
             <TextBox Grid.Row="0"
-                     x:Name="newTextBox"
                      Margin="25"
                      Text="{Binding QuizName}"/>
 
             <Button Grid.Row="1"
                     Grid.Column="0"
-                    x:Name="newBtn"
                     Content="Nowy Quiz"
                     Command="{Binding AddQuiz}"/>
 
             <ListBox Grid.Row="2"
-                     x:Name="quizListBox"
                      Background="#a7c0cd"
                      Margin="25"
                      ItemsSource="{Binding QuizList}"/>
 
             <Button Grid.Row="3"
-                    x:Name="Btn1"
-                    Content="Edytuj Quiz"/>
+                    Content="Edytuj Quiz"
+                    Command="{Binding ChangeWindow}"/>
 
         </Grid>
 
@@ -83,25 +82,28 @@
                        Text="{Binding FilePath}"
                        Background="#a7c0cd"
                        Margin="25"
-                       FontSize="20"
+                       FontSize="17"
                        TextWrapping="WrapWithOverflow"
                        TextAlignment="Center"/>
 
             <Button Grid.Row="1"
-                    Content="Wybierz plik"
+                    Width="310"
+                    Content="Wybierz plik do wczytania"
                     Command="{Binding AddPath}"/>
 
             <Button Grid.Row="2"
                     Width="270"
                     Grid.Column="0"
                     x:Name="Btn2"
-                    Content="Wczytaj Quiz z pliku"/>
+                    Content="Wczytaj Quiz z pliku"
+                    Command="{Binding ReadFile}"/>
 
             <Button Grid.Row="3"
                     Width="270"
                     Grid.Column="1"
                     x:Name="Btn3"
-                    Content="Zapisz Quiz do pliku"/>
+                    Content="Zapisz Quiz do pliku"
+                    Command="{Binding WriteFile}"/>
 
         </Grid>
 

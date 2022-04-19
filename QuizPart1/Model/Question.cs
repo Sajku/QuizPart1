@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuizPart1.Modules
+namespace QuizPart1.Model
 {
     class Question
     {
