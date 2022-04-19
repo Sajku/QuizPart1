@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using QuizPart1.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -16,24 +17,27 @@ namespace QuizPart1.ViewModel
         private bool fileChosen;
         private bool quizChosen;
         public Quiz currentQuiz;
+        private string fileContent;
 
         public MainViewModel()
         {
             fileChosen = false;
             QuizList = new ObservableCollection<Quiz>();
+            QuizName = "";
+            fileContent = "";
             
 
             Quiz currentQuiz1 = new Quiz("Pierwszy");
 
             List<string> lista1 = new List<string>
             {
-                "Odpowiedź 1",
-                "Odpowiedź 2 - p",
-                "Odpowiedź 3",
-                "Odpowiedź 4"
+                "Odpowiedz 1",
+                "Odpowiedz 2 - p",
+                "Odpowiedz 3",
+                "Odpowiedz 4"
             };
 
-            currentQuiz1.Questions.Add(new Question("Treść pytania numer 1", lista1, 1, -1));
+            currentQuiz1.Questions.Add(new Question("Tresc pytania numer 1", lista1, 1, -1));
             lista1.RemoveAt(0);
             lista1.RemoveAt(0);
             lista1.RemoveAt(0);
@@ -65,7 +69,7 @@ namespace QuizPart1.ViewModel
             currentQuiz1.Questions.Add(new Question("jdkjqkdnsdnasndasdka", lista1, 2, -1));
 
             string fileName = "dane.json";
-            string json = JsonSerializer.Serialize(currentQuiz);
+            string json = JsonSerializer.Serialize(currentQuiz1);
             File.WriteAllText(fileName, json);
 
             QuizList.Add(currentQuiz1);
@@ -124,7 +128,7 @@ namespace QuizPart1.ViewModel
                         QuizList.Add(new Quiz(QuizName));
                     },
 
-                    (o) => true
+                    (o) => !quizName.Equals("")
                     );
                 return addQuiz;
             }
@@ -140,7 +144,8 @@ namespace QuizPart1.ViewModel
 
                     (o) =>
                     {
-                        // TO DO
+                        Quiz quizFromFile = JsonSerializer.Deserialize<Quiz>(fileContent);
+                        QuizList.Add(quizFromFile);
                     },
 
                     (o) => fileChosen
@@ -188,7 +193,15 @@ namespace QuizPart1.ViewModel
 
 
                             if (openFileDialog1.ShowDialog() == true)
+                            {
                                 FilePath = openFileDialog1.FileName;
+                                var fileStream = openFileDialog1.OpenFile();
+
+                                using (StreamReader reader = new StreamReader(fileStream))
+                                {
+                                    fileContent = reader.ReadToEnd();
+                                }
+                            }
                         },
                         (o) => true
                         );

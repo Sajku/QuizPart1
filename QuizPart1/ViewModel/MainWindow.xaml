@@ -49,7 +49,10 @@
 
             <TextBox Grid.Row="0"
                      Margin="25"
-                     Text="{Binding QuizName}"/>
+                     Text="{Binding QuizName, 
+                     UpdateSourceTrigger=PropertyChanged}"
+                     TextWrapping="Wrap"
+                     MaxLength="40"/>
 
             <Button Grid.Row="1"
                     Grid.Column="0"
@@ -84,7 +87,7 @@
                        Background="#a7c0cd"
                        Margin="25"
                        FontSize="17"
-                       TextWrapping="WrapWithOverflow"
+                       TextWrapping="Wrap"
                        TextAlignment="Center"/>
 
             <Button Grid.Row="1"

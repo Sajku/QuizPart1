@@ -11,10 +11,11 @@ namespace QuizPart1.Model
     {
         public string Name { get; set; }
         public List<Question> Questions { get; set; }
-
+        
+        public Quiz() { }
         public Quiz(string n)
         {
-            this.Name = n;
+            Name = n;
             Questions = new List<Question>();
         }
 
@@ -22,6 +23,11 @@ namespace QuizPart1.Model
         {
             //this.currentWin.NazwaQuizu = "3";
             return this.Name + ", pytań: " + this.Questions.Count;
+        }
+
+        public string getName()
+        {
+            return Name;
         }
 
     }

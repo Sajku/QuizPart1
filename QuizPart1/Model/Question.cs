@@ -13,6 +13,7 @@ namespace QuizPart1.Model
         public int Correct { get; set; }
         public int Chosen { get; set; }
 
+        public Question() { }
         public Question(string c, List<string> a, int index, int chosenI)
         {
 

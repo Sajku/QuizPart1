@@ -56,6 +56,10 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
+            <Label Grid.Column="0"
+                   Content="{Binding QuizName}"
+                   Margin="0"/>
+            
             <ListBox Grid.Row="0"
                      Background="#a7c0cd"
                      Margin="25"
@@ -93,6 +97,9 @@
 
             <Label Grid.Row="1"
                    Content="Odpowiedź 1"/>
+            <Label Grid.Row="1"
+                   Content="Poprawna?"
+                   HorizontalContentAlignment="Right"/>
             <TextBox Grid.Row="1"/>
             <CheckBox Grid.Row="1">
                 <CheckBox.LayoutTransform>
