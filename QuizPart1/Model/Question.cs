@@ -27,5 +27,10 @@ namespace QuizPart1.Model
             }
 
         }
+
+        public override string ToString()
+        {
+            return Content;
+        }
     }
 }

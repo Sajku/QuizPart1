@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using QuizPart1.Model;
 
 namespace QuizPart1.ViewModel
 {
@@ -19,9 +20,12 @@ namespace QuizPart1.ViewModel
     /// </summary>
     public partial class QuizWindow : Window
     {
-        public QuizWindow()
+        public QuizWindow(object currentQuiz)
         {
             InitializeComponent();
+            Quiz c = (Quiz)currentQuiz;
+            DataContext = new QuizViewModel(c);
+            Title = "Quiz - " + c.Name;
         }
     }
 }

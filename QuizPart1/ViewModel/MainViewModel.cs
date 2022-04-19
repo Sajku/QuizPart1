@@ -14,13 +14,16 @@ namespace QuizPart1.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private bool fileChosen;
+        private bool quizChosen;
+        public Quiz currentQuiz;
 
         public MainViewModel()
         {
             fileChosen = false;
             QuizList = new ObservableCollection<Quiz>();
+            
 
-            Quiz currentQuiz = new Quiz("Pierwszy");
+            Quiz currentQuiz1 = new Quiz("Pierwszy");
 
             List<string> lista1 = new List<string>
             {
@@ -30,7 +33,7 @@ namespace QuizPart1.ViewModel
                 "Odpowiedź 4"
             };
 
-            currentQuiz.Questions.Add(new Question("Treść pytania numer 1", lista1, 1, -1));
+            currentQuiz1.Questions.Add(new Question("Treść pytania numer 1", lista1, 1, -1));
             lista1.RemoveAt(0);
             lista1.RemoveAt(0);
             lista1.RemoveAt(0);
@@ -39,7 +42,7 @@ namespace QuizPart1.ViewModel
             lista1.Add("Odp B");
             lista1.Add("Odp C");
             lista1.Add("Odp D - p");
-            currentQuiz.Questions.Add(new Question("PYTANIE NUMER 2", lista1, 3, -1));
+            currentQuiz1.Questions.Add(new Question("PYTANIE NUMER 2", lista1, 3, -1));
 
             lista1.RemoveAt(0);
             lista1.RemoveAt(0);
@@ -49,7 +52,7 @@ namespace QuizPart1.ViewModel
             lista1.Add("ANSWER DEF");
             lista1.Add("ANSWER GHI");
             lista1.Add("ANSWER JKL");
-            currentQuiz.Questions.Add(new Question("QUESTION 3.", lista1, 0, -1));
+            currentQuiz1.Questions.Add(new Question("QUESTION 3.", lista1, 0, -1));
 
             lista1.RemoveAt(0);
             lista1.RemoveAt(0);
@@ -59,13 +62,15 @@ namespace QuizPart1.ViewModel
             lista1.Add("bbbbbbBBBBBBBB");
             lista1.Add("ccccccccCCCCCCCCCc - p");
             lista1.Add("dddDDD");
-            currentQuiz.Questions.Add(new Question("jdkjqkdnsdnasndasdka", lista1, 2, -1));
+            currentQuiz1.Questions.Add(new Question("jdkjqkdnsdnasndasdka", lista1, 2, -1));
 
             string fileName = "dane.json";
             string json = JsonSerializer.Serialize(currentQuiz);
             File.WriteAllText(fileName, json);
 
-            QuizList.Add(currentQuiz);
+            QuizList.Add(currentQuiz1);
+
+            currentQuiz = currentQuiz1;
         }
 
         private string quizName;
@@ -88,6 +93,18 @@ namespace QuizPart1.ViewModel
                 filePath = value;
                 fileChosen = true;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(filePath)));
+            }
+        }
+
+        private Quiz chosenQuiz;
+        public Quiz ChosenQuiz
+        {
+            get => chosenQuiz;
+            set
+            {
+                chosenQuiz = value;
+                quizChosen = true;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(chosenQuiz)));
             }
         }
 
@@ -179,24 +196,29 @@ namespace QuizPart1.ViewModel
             }
         }
 
-        private ICommand changeWindow;
-        public ICommand ChangeWindow
+        private ICommand editQuiz;
+        public ICommand EditQuiz
         {
             get
             {
-                if (changeWindow == null)
-                    changeWindow = new RelayCommand(
+                if (editQuiz == null)
+                    editQuiz = new RelayCommand(
 
                     (o) =>
                     {
-                        Application.Current.MainWindow = new QuizWindow();
+                        //Application.Current.MainWindow = new QuizWindow(ChosenQuiz);
+                        //Application.Current.MainWindow.Show();
 
+                        Application.Current.MainWindow.Hide();
+                        QuizWindow win1 = new QuizWindow(ChosenQuiz);
+                        win1.ShowDialog();
                         Application.Current.MainWindow.Show();
+
                     },
 
-                    (o) => true
+                    (o) => quizChosen
                     );
-                return changeWindow;
+                return editQuiz;
             }
         }
 

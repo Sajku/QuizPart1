@@ -9,10 +9,6 @@
         Title="QUIZ" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
 
-    <Window.DataContext>
-        <vm:MainViewModel x:Name="mainViewModel"/>
-    </Window.DataContext>
-
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Width" Value="200"/>
@@ -36,6 +32,11 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="0 0 25 0"/>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="19 -14 0 0"/>
         </Style>
     </Window.Resources>
 
@@ -83,10 +84,15 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
+            <Label Grid.Row="0"
+                   Content="Treść pytania"
+                   Margin="19 -2 0 0"/>
             <TextBox Grid.Row="0"
                      Margin="25"
                      MaxLength="150"/>
 
+            <Label Grid.Row="1"
+                   Content="Odpowiedź 1"/>
             <TextBox Grid.Row="1"/>
             <CheckBox Grid.Row="1">
                 <CheckBox.LayoutTransform>
@@ -94,6 +100,8 @@
                 </CheckBox.LayoutTransform>
             </CheckBox>
 
+            <Label Grid.Row="2"
+                   Content="Odpowiedź 2"/>
             <TextBox Grid.Row="2"/>
             <CheckBox Grid.Row="2">
                 <CheckBox.LayoutTransform>
@@ -101,6 +109,8 @@
                 </CheckBox.LayoutTransform>
             </CheckBox>
 
+            <Label Grid.Row="3"
+                   Content="Odpowiedź 3"/>
             <TextBox Grid.Row="3"/>
             <CheckBox Grid.Row="3">
                 <CheckBox.LayoutTransform>
@@ -108,6 +118,8 @@
                 </CheckBox.LayoutTransform>
             </CheckBox>
 
+            <Label Grid.Row="4"
+                   Content="Odpowiedź 4"/>
             <TextBox Grid.Row="4"/>
             <CheckBox Grid.Row="4">
                 <CheckBox.LayoutTransform>

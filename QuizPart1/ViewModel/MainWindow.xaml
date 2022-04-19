@@ -59,11 +59,12 @@
             <ListBox Grid.Row="2"
                      Background="#a7c0cd"
                      Margin="25"
-                     ItemsSource="{Binding QuizList}"/>
+                     ItemsSource="{Binding QuizList}"
+                     SelectedItem="{Binding ChosenQuiz}"/>
 
             <Button Grid.Row="3"
                     Content="Edytuj Quiz"
-                    Command="{Binding ChangeWindow}"/>
+                    Command="{Binding EditQuiz}"/>
 
         </Grid>
 
