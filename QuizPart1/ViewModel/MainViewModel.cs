@@ -167,7 +167,7 @@ namespace QuizPart1.ViewModel
                         // TO DO
                     },
 
-                    (o) => true
+                    (o) => quizChosen
                     );
                 return writeFile;
             }

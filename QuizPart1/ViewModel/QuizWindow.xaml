@@ -57,22 +57,26 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0"
-                   Content="{Binding QuizName}"
+                   Content="Binding QuizName"
                    Margin="0"/>
             
             <ListBox Grid.Row="0"
                      Background="#a7c0cd"
                      Margin="25"
-                     ItemsSource="{Binding QuestionList}"/>
+                     ItemsSource="{Binding QuestionList, UpdateSourceTrigger=PropertyChanged}"
+                     SelectedItem="{Binding ChosenQuestion}"/>
 
             <Button Grid.Row="1"
-                    Content="Zapisz pytanie"/>
+                    Content="Dodaj pytanie"
+                    Command="{Binding AddQuestion}"/>
 
             <Button Grid.Row="2"
-                    Content="Edytuj pytanie"/>
+                    Content="Zapisz zmiany"
+                    Command="{Binding SaveQuestion}"/>
             
             <Button Grid.Row="3"
-                    Content="Usuń pytanie"/>
+                    Content="Usuń pytanie"
+                    Command="{Binding DeleteQuestion}"/>
 
         </Grid>
 
@@ -93,14 +97,18 @@
                    Margin="19 -2 0 0"/>
             <TextBox Grid.Row="0"
                      Margin="25"
-                     MaxLength="150"/>
+                     MaxLength="150"
+                     Text="{Binding CurrentContent, 
+                     UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Grid.Row="1"
                    Content="Odpowiedź 1"/>
             <Label Grid.Row="1"
                    Content="Poprawna?"
                    HorizontalContentAlignment="Right"/>
-            <TextBox Grid.Row="1"/>
+            <TextBox Grid.Row="1"
+                     Text="{Binding CurrentAnswer0, 
+                     UpdateSourceTrigger=PropertyChanged}"/>
             <CheckBox Grid.Row="1">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2" />
@@ -109,7 +117,9 @@
 
             <Label Grid.Row="2"
                    Content="Odpowiedź 2"/>
-            <TextBox Grid.Row="2"/>
+            <TextBox Grid.Row="2"
+                     Text="{Binding CurrentAnswer1, 
+                     UpdateSourceTrigger=PropertyChanged}"/>
             <CheckBox Grid.Row="2">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2" />
@@ -118,7 +128,9 @@
 
             <Label Grid.Row="3"
                    Content="Odpowiedź 3"/>
-            <TextBox Grid.Row="3"/>
+            <TextBox Grid.Row="3"
+                     Text="{Binding CurrentAnswer2, 
+                     UpdateSourceTrigger=PropertyChanged}"/>
             <CheckBox Grid.Row="3">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2" />
@@ -127,7 +139,9 @@
 
             <Label Grid.Row="4"
                    Content="Odpowiedź 4"/>
-            <TextBox Grid.Row="4"/>
+            <TextBox Grid.Row="4"
+                     Text="{Binding CurrentAnswer3, 
+                     UpdateSourceTrigger=PropertyChanged}"/>
             <CheckBox Grid.Row="4">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2" />

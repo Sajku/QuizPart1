@@ -11,7 +11,6 @@ namespace QuizPart1.Model
     {
         public string Name { get; set; }
         public List<Question> Questions { get; set; }
-        
         public Quiz() { }
         public Quiz(string n)
         {

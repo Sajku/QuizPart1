@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace QuizPart1.Model
 {
@@ -14,13 +10,24 @@ namespace QuizPart1.Model
         public int Chosen { get; set; }
 
         public Question() { }
+        public Question(string c)
+        {
+            Content = c;
+            Correct = 0;
+            Answers = new List<string>();
+            for (int i = 0; i < 4; i++)
+            {
+                Answers.Add("");
+            }
+        }
+
         public Question(string c, List<string> a, int index, int chosenI)
         {
 
-            this.Content = c;
-            this.Correct = index;
-            this.Chosen = chosenI;
-            this.Answers = new List<string>();
+            Content = c;
+            Correct = index;
+            Chosen = chosenI;
+            Answers = new List<string>();
 
             foreach (string answer in a)
             {
