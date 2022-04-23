@@ -12,6 +12,7 @@ namespace QuizPart1.ViewModel
         private Quiz currentQuiz;
         private int chosenQuestionIndex;
         private bool readyToSave;
+        
         public QuizViewModel(Quiz currentQuiz1)
         {
             QuestionList = new ObservableCollection<Question>();
@@ -24,6 +25,7 @@ namespace QuizPart1.ViewModel
             currentQuiz = currentQuiz1;
             chosenQuestionIndex = -1;
             readyToSave = false;
+            listboxEnabled = true;
 
             currentContent = "";
             currentAnswer0 = "";
@@ -41,6 +43,7 @@ namespace QuizPart1.ViewModel
             set
             {
                 currentContent = value;
+                checkChanges();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(currentContent)));
             }
         }
@@ -52,6 +55,7 @@ namespace QuizPart1.ViewModel
             set
             {
                 currentAnswer0 = value;
+                checkChanges();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(currentAnswer0)));
             }
         }
@@ -63,6 +67,7 @@ namespace QuizPart1.ViewModel
             set
             {
                 currentAnswer1 = value;
+                checkChanges();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(currentAnswer1)));
             }
         }
@@ -74,6 +79,7 @@ namespace QuizPart1.ViewModel
             set
             {
                 currentAnswer2 = value;
+                checkChanges();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(currentAnswer2)));
             }
         }
@@ -85,12 +91,69 @@ namespace QuizPart1.ViewModel
             set
             {
                 currentAnswer3 = value;
+                checkChanges();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(currentAnswer3)));
             }
         }
 
+        private bool check0;
+        public bool Check0
+        {
+            get => check0;
+            set
+            {
+                check0 = value;
+                checkChanges();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(check0)));
+            }
+        }
 
+        private bool check1;
+        public bool Check1
+        {
+            get => check1;
+            set
+            {
+                check1 = value;
+                checkChanges();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(check1)));
+            }
+        }
 
+        private bool check2;
+        public bool Check2
+        {
+            get => check2;
+            set
+            {
+                check2 = value;
+                checkChanges();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(check2)));
+            }
+        }
+
+        private bool check3;
+        public bool Check3
+        {
+            get => check3;
+            set
+            {
+                check3 = value;
+                checkChanges();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(check3)));
+            }
+        }
+
+        private bool listboxEnabled;
+        public bool ListboxEnabled
+        {
+            get => listboxEnabled;
+            set
+            {
+                listboxEnabled = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(listboxEnabled)));
+            }
+        }
 
         private Question chosenQuestion;
         public Question ChosenQuestion
@@ -102,11 +165,36 @@ namespace QuizPart1.ViewModel
                 chosenQuestionIndex = QuestionList.IndexOf(chosenQuestion);
                 if (chosenQuestion != null)
                 {
+                    
                     CurrentContent = ChosenQuestion.Content;
                     CurrentAnswer0 = ChosenQuestion.Answers[0];
                     CurrentAnswer1 = ChosenQuestion.Answers[1];
                     CurrentAnswer2 = ChosenQuestion.Answers[2];
                     CurrentAnswer3 = ChosenQuestion.Answers[3];
+
+                    Check0 = false;
+                    Check1 = false;
+                    Check2 = false;
+                    Check3 = false;
+                    foreach (int o in ChosenQuestion.Correct)
+                    {
+                        if (o == 0)
+                        {
+                            Check0 = true;
+                        }
+                        if (o == 1)
+                        {
+                            Check1 = true;
+                        }
+                        if (o == 2)
+                        {
+                            Check2 = true;
+                        }
+                        if (o == 3)
+                        {
+                            Check3 = true;
+                        }
+                    }
                 }
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(chosenQuestion)));
             }
@@ -125,9 +213,10 @@ namespace QuizPart1.ViewModel
                     (o) =>
                     {
                         QuestionList.Add(new Question("Nowe pytanie"));
+                        ListboxEnabled = true;
                     },
 
-                    (o) => true
+                    (o) => !readyToSave
                     //(o) => chosenQuestionIndex < 0
                     );
                 return addQuestion;
@@ -145,18 +234,29 @@ namespace QuizPart1.ViewModel
                     (o) =>
                     {
                         // TODO
-                        ChosenQuestion.Content = CurrentContent;
-                        ChosenQuestion.Answers[0] = CurrentAnswer0;
-                        ChosenQuestion.Answers[1] = CurrentAnswer1;
-                        ChosenQuestion.Answers[2] = CurrentAnswer2;
-                        ChosenQuestion.Answers[3] = CurrentAnswer3;
+                        Question temp = new Question(CurrentContent);
+                        temp.Answers[0] = CurrentAnswer0;
+                        temp.Answers[1] = CurrentAnswer1;
+                        temp.Answers[2] = CurrentAnswer2;
+                        temp.Answers[3] = CurrentAnswer3;
+                        if (Check0)
+                            temp.Correct.Add(0);
+                        if (Check1)
+                            temp.Correct.Add(1);
+                        if (Check2)
+                            temp.Correct.Add(2);
+                        if (Check3)
+                            temp.Correct.Add(3);
+
+                        QuestionList.Insert(chosenQuestionIndex, temp);
+                        QuestionList.RemoveAt(chosenQuestionIndex + 1);
 
                         readyToSave = false;
+                        ListboxEnabled = true;
 
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(chosenQuestion)));
                     },
 
-                    (o) => true
+                    (o) => readyToSave
                     );
                 return saveQuestion;
             }
@@ -179,6 +279,7 @@ namespace QuizPart1.ViewModel
                             case MessageBoxResult.Yes:
                                 QuestionList.Remove(ChosenQuestion);
                                 CleanCurrentValues();
+                                ListboxEnabled = true;
                                 break;
                             case MessageBoxResult.No:
                                 break;
@@ -194,23 +295,41 @@ namespace QuizPart1.ViewModel
 
         private void checkChanges()
         {
+            int changed = 0;
+            int checkedCount = 0;
+            if (ChosenQuestion != null)
+            {
+                if (CurrentContent != ChosenQuestion.Content && CurrentContent.Trim() != "")
+                    changed = 1;
+                else if (CurrentAnswer0 != ChosenQuestion.Answers[0] && CurrentAnswer0.Trim() != "")
+                    changed = 1;
+                else if (CurrentAnswer1 != ChosenQuestion.Answers[1] && CurrentAnswer1.Trim() != "")
+                    changed = 1;
+                else if (CurrentAnswer2 != ChosenQuestion.Answers[2] && CurrentAnswer2.Trim() != "")
+                    changed = 1;
+                else if (CurrentAnswer3 != ChosenQuestion.Answers[3] && CurrentAnswer3.Trim() != "")
+                    changed = 1;
 
-            //if (TempQuestion.Answers != null)
-            //{
-            //    if (TempQuestion.Answers.Contains(""))
-            //    {
-            //        readyToSave = false;
-            //    }
-            //    else if (TempQuestion.Content == "")
-            //    {
-            //        readyToSave = false;
-            //    }
-            //    else if (TempQuestion.Answers == ChosenQuestion.Answers && TempQuestion.Content == ChosenQuestion.Content)
-            //    {
-            //        readyToSave = false;
-            //    }
-            //    else readyToSave = true;
-            //}
+                if (Check0)
+                    checkedCount++;
+                if (Check1)
+                    checkedCount++;
+                if (Check2)
+                    checkedCount++;
+                if (Check3)
+                    checkedCount++;
+
+                if (changed > 0 && checkedCount > 0)
+                {
+                    readyToSave = true;
+                    ListboxEnabled = false;
+                }
+                else
+                {
+                    readyToSave = false;
+                    ListboxEnabled = true;
+                }
+            }
         }
 
         private void CleanCurrentValues()
@@ -220,6 +339,10 @@ namespace QuizPart1.ViewModel
             CurrentAnswer1 = "";
             CurrentAnswer2 = "";
             CurrentAnswer3 = "";
+            check0 = false;
+            check1 = false;
+            check2 = false;
+            check3 = false;
         }
 
     }

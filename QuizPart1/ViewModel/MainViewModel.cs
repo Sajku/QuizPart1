@@ -37,7 +37,12 @@ namespace QuizPart1.ViewModel
                 "Odpowiedz 4"
             };
 
-            currentQuiz1.Questions.Add(new Question("Tresc pytania numer 1", lista1, 1, -1));
+            List<int> lista2 = new List<int>
+            {
+                2,3
+            };
+
+            currentQuiz1.Questions.Add(new Question("Tresc pytania numer 1", lista1, lista2, -1));
             lista1.RemoveAt(0);
             lista1.RemoveAt(0);
             lista1.RemoveAt(0);
@@ -46,7 +51,10 @@ namespace QuizPart1.ViewModel
             lista1.Add("Odp B");
             lista1.Add("Odp C");
             lista1.Add("Odp D - p");
-            currentQuiz1.Questions.Add(new Question("PYTANIE NUMER 2", lista1, 3, -1));
+            lista2.RemoveAt(0);
+            lista2.RemoveAt(0);
+            lista2.Add(1);
+            currentQuiz1.Questions.Add(new Question("PYTANIE NUMER 2", lista1, lista2, -1));
 
             lista1.RemoveAt(0);
             lista1.RemoveAt(0);
@@ -56,7 +64,9 @@ namespace QuizPart1.ViewModel
             lista1.Add("ANSWER DEF");
             lista1.Add("ANSWER GHI");
             lista1.Add("ANSWER JKL");
-            currentQuiz1.Questions.Add(new Question("QUESTION 3.", lista1, 0, -1));
+            lista2.RemoveAt(0);
+            lista2.Add(3);
+            currentQuiz1.Questions.Add(new Question("QUESTION 3.", lista1, lista2, -1));
 
             lista1.RemoveAt(0);
             lista1.RemoveAt(0);
@@ -66,7 +76,9 @@ namespace QuizPart1.ViewModel
             lista1.Add("bbbbbbBBBBBBBB");
             lista1.Add("ccccccccCCCCCCCCCc - p");
             lista1.Add("dddDDD");
-            currentQuiz1.Questions.Add(new Question("jdkjqkdnsdnasndasdka", lista1, 2, -1));
+            lista2.RemoveAt(0);
+            lista2.Add(4);
+            currentQuiz1.Questions.Add(new Question("jdkjqkdnsdnasndasdka", lista1, lista2, -1));
 
             string fileName = "dane.json";
             string json = JsonSerializer.Serialize(currentQuiz1);

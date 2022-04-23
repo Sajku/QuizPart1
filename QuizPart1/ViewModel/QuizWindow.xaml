@@ -64,7 +64,8 @@
                      Background="#a7c0cd"
                      Margin="25"
                      ItemsSource="{Binding QuestionList, UpdateSourceTrigger=PropertyChanged}"
-                     SelectedItem="{Binding ChosenQuestion}"/>
+                     SelectedItem="{Binding ChosenQuestion}"
+                     IsEnabled="{Binding ListboxEnabled}"/>
 
             <Button Grid.Row="1"
                     Content="Dodaj pytanie"
@@ -109,7 +110,10 @@
             <TextBox Grid.Row="1"
                      Text="{Binding CurrentAnswer0, 
                      UpdateSourceTrigger=PropertyChanged}"/>
-            <CheckBox Grid.Row="1">
+            <CheckBox Grid.Row="1"
+                      IsChecked="{Binding Check0}">
+                      <!--BorderThickness="{Binding BT}"
+                      BorderBrush="{Binding BB}"-->
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2" />
                 </CheckBox.LayoutTransform>
@@ -120,7 +124,8 @@
             <TextBox Grid.Row="2"
                      Text="{Binding CurrentAnswer1, 
                      UpdateSourceTrigger=PropertyChanged}"/>
-            <CheckBox Grid.Row="2">
+            <CheckBox Grid.Row="2"
+                      IsChecked="{Binding Check1}">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2" />
                 </CheckBox.LayoutTransform>
@@ -131,7 +136,8 @@
             <TextBox Grid.Row="3"
                      Text="{Binding CurrentAnswer2, 
                      UpdateSourceTrigger=PropertyChanged}"/>
-            <CheckBox Grid.Row="3">
+            <CheckBox Grid.Row="3"
+                      IsChecked="{Binding Check2}">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2" />
                 </CheckBox.LayoutTransform>
@@ -142,7 +148,8 @@
             <TextBox Grid.Row="4"
                      Text="{Binding CurrentAnswer3, 
                      UpdateSourceTrigger=PropertyChanged}"/>
-            <CheckBox Grid.Row="4">
+            <CheckBox Grid.Row="4"
+                      IsChecked="{Binding Check3}">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="2" ScaleY="2" />
                 </CheckBox.LayoutTransform>

@@ -6,14 +6,14 @@ namespace QuizPart1.Model
     {
         public string Content { get; set; }
         public List<string> Answers { get; set; }
-        public int Correct { get; set; }
+        public List<int> Correct { get; set; }
         public int Chosen { get; set; }
 
         public Question() { }
         public Question(string c)
         {
             Content = c;
-            Correct = 0;
+            Correct = new List<int>();
             Answers = new List<string>();
             for (int i = 0; i < 4; i++)
             {
@@ -21,19 +21,21 @@ namespace QuizPart1.Model
             }
         }
 
-        public Question(string c, List<string> a, int index, int chosenI)
+        public Question(string c, List<string> a, List<int> indexes, int chosenI)
         {
-
             Content = c;
-            Correct = index;
+            Correct = new List<int>();
             Chosen = chosenI;
-            Answers = new List<string>();
-
-            foreach (string answer in a)
+            foreach (int answer in indexes)
             {
-                this.Answers.Add(answer);
+                Correct.Add(answer);
             }
 
+            Answers = new List<string>();
+            foreach (string answer in a)
+            {
+                Answers.Add(answer);
+            }
         }
 
         public override string ToString()
