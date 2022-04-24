@@ -7,7 +7,7 @@ namespace QuizPart1.Model
         public string Content { get; set; }
         public List<string> Answers { get; set; }
         public List<int> Correct { get; set; }
-        public int Chosen { get; set; }
+        public List<int> Chosen { get; set; }
 
         public Question() { }
         public Question(string c)
@@ -25,7 +25,7 @@ namespace QuizPart1.Model
         {
             Content = c;
             Correct = new List<int>();
-            Chosen = chosenI;
+            Chosen = new List<int>();
             foreach (int answer in indexes)
             {
                 Correct.Add(answer);

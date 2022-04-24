@@ -1,4 +1,5 @@
 ﻿using QuizPart1.Model;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -23,6 +24,7 @@ namespace QuizPart1.ViewModel
             }
 
             currentQuiz = currentQuiz1;
+            QuizName = currentQuiz1.Name;
             chosenQuestionIndex = -1;
             readyToSave = false;
             listboxEnabled = true;
@@ -35,6 +37,16 @@ namespace QuizPart1.ViewModel
 
         }
 
+        private string quizName;
+        public string QuizName
+        {
+            get => quizName;
+            set
+            {
+                quizName = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(quizName)));
+            }
+        }
 
         private string currentContent;
         public string CurrentContent
@@ -213,6 +225,7 @@ namespace QuizPart1.ViewModel
                     (o) =>
                     {
                         QuestionList.Add(new Question("Nowe pytanie"));
+                        currentQuiz.Questions.Add(new Question("Nowe pytanie"));
                         ListboxEnabled = true;
                     },
 
@@ -248,8 +261,11 @@ namespace QuizPart1.ViewModel
                         if (Check3)
                             temp.Correct.Add(3);
 
+                        currentQuiz.Questions.Insert(chosenQuestionIndex, temp);
+                        currentQuiz.Questions.RemoveAt(chosenQuestionIndex + 1);
                         QuestionList.Insert(chosenQuestionIndex, temp);
                         QuestionList.RemoveAt(chosenQuestionIndex + 1);
+                        
 
                         readyToSave = false;
                         ListboxEnabled = true;
@@ -277,6 +293,7 @@ namespace QuizPart1.ViewModel
                         switch (result)
                         {
                             case MessageBoxResult.Yes:
+                                currentQuiz.Questions.Remove(ChosenQuestion);
                                 QuestionList.Remove(ChosenQuestion);
                                 CleanCurrentValues();
                                 ListboxEnabled = true;
@@ -286,7 +303,7 @@ namespace QuizPart1.ViewModel
                         }
                     },
 
-                    (o) => true
+                    (o) => chosenQuestion != null
                     //(o) => chosenQuestionIndex >= 0
                     );
                 return deleteQuestion;

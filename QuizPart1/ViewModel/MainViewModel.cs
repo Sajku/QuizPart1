@@ -138,6 +138,7 @@ namespace QuizPart1.ViewModel
                     (o) =>
                     {
                         QuizList.Add(new Quiz(QuizName));
+                        QuizName = "";
                     },
 
                     (o) => !quizName.Equals("")
@@ -156,8 +157,7 @@ namespace QuizPart1.ViewModel
 
                     (o) =>
                     {
-                        Quiz quizFromFile = JsonSerializer.Deserialize<Quiz>(fileContent);
-                        QuizList.Add(quizFromFile);
+                        QuizList.Add(FileManagment.readFile(fileContent));
                     },
 
                     (o) => fileChosen
@@ -176,7 +176,7 @@ namespace QuizPart1.ViewModel
 
                     (o) =>
                     {
-                        // TO DO
+                        FileManagment.writeFile(chosenQuiz);
                     },
 
                     (o) => quizChosen

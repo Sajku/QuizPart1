@@ -85,6 +85,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\CaesarCipher.cs" />
+    <Compile Include="Model\FileManagment.cs" />
+    <Compile Include="Model\ICipher.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\QuizViewModel.cs" />
     <Compile Include="ViewModel\QuizWindow.xaml.cs">

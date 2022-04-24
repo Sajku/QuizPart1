@@ -58,7 +58,7 @@
 
             <Label Grid.Column="0"
                    Content="Binding QuizName"
-                   Margin="0"/>
+                   Margin="20 0 0 0" Grid.RowSpan="2"/>
             
             <ListBox Grid.Row="0"
                      Background="#a7c0cd"
