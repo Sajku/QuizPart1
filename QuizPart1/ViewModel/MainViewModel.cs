@@ -238,6 +238,9 @@ namespace QuizPart1.ViewModel
                         QuizWindow win1 = new QuizWindow(ChosenQuiz);
                         win1.ShowDialog();
                         Application.Current.MainWindow.Show();
+                        int index = QuizList.IndexOf(currentQuiz);
+                        QuizList.Insert(index, currentQuiz);
+                        QuizList.RemoveAt(index + 1);
 
                     },
 

@@ -14,7 +14,7 @@ namespace QuizPart1.Model
     {
         public static void writeFile(Quiz chosenQuiz)
         {
-            CaesarCipher caesar1 = new CaesarCipher(1);
+            ICipher caesar1 = new CaesarCipher(1);
 
             string serialized = JsonSerializer.Serialize(chosenQuiz);
             string encrypted = caesar1.Encrypt(serialized);
@@ -33,7 +33,7 @@ namespace QuizPart1.Model
 
         public static Quiz readFile(string fileContent)
         {
-            CaesarCipher caesar1 = new CaesarCipher(1);
+            ICipher caesar1 = new CaesarCipher(1);
 
             string text = caesar1.Decrypt(fileContent);
             Console.WriteLine(text);
